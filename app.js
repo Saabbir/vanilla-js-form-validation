@@ -2,7 +2,7 @@ const rules = {
     userName: { 
         required: true,
         minlength: 3,
-        maxlength: 20
+        maxlength: 10
     },
     userEmail: {
         required: true
@@ -32,16 +32,22 @@ function validateForm(e, rules) {
     function validateUserName() {
         if (rules.userName.required) {
             const userNameEl = form.elements.userName
-            const userNameVal = userNameEl.value.trim()
+            const userNameVal = userNameEl.value.trim().toLowerCase()
 
             if (userNameVal === '') {
                 errors.push('The name field is required. You can\'t leave it empty.')
                 addErrorField(userNameEl)
+            } else if (!isNaN(userNameVal.charAt(0))) {
+                errors.push(`Username can't start with a number ${userNameVal.charAt(0)}`)
+                addErrorField(userNameEl)
             } else if (userNameVal.length < rules.userName.minlength) {
-                errors.push(`Your name must be at least ${rules.userName.minlength} characters.`)
+                errors.push(`Username must be at least ${rules.userName.minlength} characters.`)
                 addErrorField(userNameEl)
             } else if (userNameVal.length > rules.userName.maxlength) {
-                errors.push(`Your name can contain maximum ${rules.userName.maxlength} characters.`)
+                errors.push(`Username can contain maximum ${rules.userName.maxlength} characters.`)
+                addErrorField(userNameEl)
+            } else if (userNameVal.includes(' ')) {
+                errors.push(`Username can't contain a space.`)
                 addErrorField(userNameEl)
             }
                         
