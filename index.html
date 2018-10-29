@@ -19,42 +19,42 @@
                         <!-- Username Field -->
                         <label class="form__label" for="userName">Username <span class="required">**</span></label>
                         <div class="form__group-right">
-                            <input class="form__control" type="text" name="userName" id="userName" placeholder="e.g. thesaabbir">
+                            <input class="form__control hasBorder" type="text" name="userName" id="userName" placeholder="e.g. thesaabbir">
                         </div>
                     </div>
                     <div class="form__group">
                         <!-- Email Field -->
                         <label class="form__label" for="userEmail">Email Address</label>
                         <div class="form__group-right">
-                            <input class="form__control" type="text" name="userEmail" id="userEmail" placeholder="e.g. thesaabbir@gmail.com">
+                            <input class="form__control hasBorder" type="text" name="userEmail" id="userEmail" placeholder="e.g. thesaabbir@gmail.com">
                         </div>
                     </div>
                     <div class="form__group">
                         <!-- Password -->
                         <label class="form__label" for="userPassword">Password</label>
                         <div class="form__group-right">
-                            <input class="form__control" type="text" name="userPassword" id="userPassword" placeholder="e.g. aA9!bB8@">
+                            <input class="form__control hasBorder" type="text" name="userPassword" id="userPassword" placeholder="e.g. aA9!bB8@">
                         </div>
                     </div>
                     <div class="form__group">
                         <!-- Confirm Password -->
                         <label class="form__label" for="userPasswordConfirm">Confirm Password</label>
                         <div class="form__group-right">
-                            <input class="form__control" type="text" name="userPasswordConfirm" id="userPasswordConfirm" placeholder="e.g. aA9!bB8@">
+                            <input class="form__control hasBorder" type="text" name="userPasswordConfirm" id="userPasswordConfirm" placeholder="e.g. aA9!bB8@">
                         </div>
                     </div>
                     <div class="form__group">
                         <!-- Date Of Birth -->
                         <label class="form__label" for="userDOB">Date of birth</label>
                         <div class="form__group-right">
-                            <input class="form__control" type="text" name="userDOB" id="userDOB" placeholder="e.g. 21-Sep-1994">
+                            <input class="form__control hasBorder" type="text" name="userDOB" id="userDOB" placeholder="e.g. 21-Sep-1994">
                         </div>
                     </div>
                     <div class="form__group">
                         <!-- Gender -->
                         <label class="form__label" for="userGender">Gender</label>
                         <div class="select-widget form__group-right">
-                            <select class="form__control" name="userGender" id="userGender">
+                            <select class="form__control hasBorder" name="userGender" id="userGender">
                                 <option selected disabled>Choose Gender</option>
                                 <option value="male">Male</option>
                                 <option value="female">Female</option>
@@ -64,12 +64,11 @@
                     </div>
                     <div class="form__group">
                         <!-- File Type -->
-                        <label class="form__label">Upload Photo</label>
+                        <label class="form__label">Upload Photo <span class="required">**</span></label>
                         <div class="form__group-right">
-                            <label for="userPhoto">e.g. portrait.png</label>
-                            <p class="help-text">We accept only jpeg, jpg and png format</p>
+                            <label class="hasBorder" for="userPhoto">Choose photo</label>
+                            <p class="help-text">We accept only jpeg/jpg and png format</p>
                             <input class="form__control" type="file" name="userPhoto" id="userPhoto">
-                            <!-- <div class="userPhotoPreview">No files currently selected.</div> -->
                         </div>
                     </div>
                 </div>

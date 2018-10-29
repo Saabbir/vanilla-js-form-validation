@@ -186,11 +186,15 @@ body {
     color: #999;
 }
 
-#errorMsg {
+#errorsList {
     border-top: 1px solid #ddd;
-    text-align: center;
-    margin: 0;
     background-color: rgba(255, 0, 0, .1);
+    padding: 20px 30px 20px 45px;
+    margin: 0;   
+}
+
+#errorsList li:not(:last-child) {
+    margin-bottom: 10px;
 }
 
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
@@ -230,7 +234,7 @@ body {
         padding: 15px;
     }
 
-    #errorMsg {
-        text-align: left;
+    #errorsList {
+        padding: 15px 15px 15px 30px;
     }
 }
