@@ -1,10 +1,10 @@
 const rules = {
-    name: { 
+    userName: { 
         required: true,
-        min: 3,
-        max: 20
+        minlength: 3,
+        maxlength: 20
     },
-    email: {
+    userEmail: {
         required: true
     }
 }
@@ -29,59 +29,63 @@ function validateForm(e, rules) {
         }
     }
 
-    function validateName() {
-        if (rules.name.required) {
+    function validateUserName() {
+        if (rules.userName.required) {
             const userNameEl = form.elements.userName
             const userNameVal = userNameEl.value.trim()
 
             if (userNameVal === '') {
                 errors.push('The name field is required. You can\'t leave it empty.')
                 addErrorField(userNameEl)
-            } else if (userNameVal.length < rules.name.min) {
-                errors.push(`Your name must be at least ${rules.name.min} characters.`)
+            } else if (userNameVal.length < rules.userName.minlength) {
+                errors.push(`Your name must be at least ${rules.userName.minlength} characters.`)
                 addErrorField(userNameEl)
-            } else if (userNameVal.length > rules.name.max) {
-                errors.push(`Your name can contain maximum ${rules.name.max} characters.`)
+            } else if (userNameVal.length > rules.userName.maxlength) {
+                errors.push(`Your name can contain maximum ${rules.userName.maxlength} characters.`)
                 addErrorField(userNameEl)
             }
                         
         }
     }
 
-    function validateEmail() {
-        if (rules.email.required) {
+    function validateUserEmail() {
+        if (rules.userEmail.required) {
             const userEmailEl = form.elements.userEmail
-            const userEmailVal = userEmailEl.value.trim()
+            const userEmailVal = userEmailEl.value.trim().toLowerCase()
+            const userEmailName = userEmailVal.slice(0, userEmailVal.indexOf('@'));
+            const userEmailDomain = userEmailVal.slice(userEmailVal.indexOf('@') + 1);
+            const validEmailDomains = ['gmail.com', 'yahoo.com', 'outlook.com', 'aol.com'];
+            const slangWords = ['LOL', 'OMG', 'WTF', 'LMAO', 'RIP', 'FUCK'];            
+            const emailRegExp = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
+            const isEmailValid = emailRegExp.test(userEmailVal)
             
             if (userEmailVal === '') {
                 errors.push('The email field is required. You can\'t leave it empty.')
                 addErrorField(userEmailEl)
-            }            
+            } else if (!isEmailValid) {
+                errors.push(`<strong>${userEmailVal}</strong> is not a valid email address.`)
+                addErrorField(userEmailEl)
+            } else if (validEmailDomains.indexOf(userEmailDomain) === -1) {
+                errors.push(`<strong>${userEmailDomain}</strong> is not a valid email domain.`)
+                addErrorField(userEmailEl)
+            } else if (slangWords.indexOf(userEmailName.toUpperCase()) !== -1) {
+                errors.push(`Your user name <strong>${userEmailName}</strong> contains slang word.`)
+                addErrorField(userEmailEl)
+            }
         }
     }
 
-    validateName()
-    validateEmail()
+    validateUserName()
+    validateUserEmail()
 
     errorFields.forEach(field => field.style.borderColor = 'red')
 
     errorMsg.innerHTML = errors.join('<br>')
     form.appendChild(errorMsg)
 
-    // Errors Array
-    console.log('Errors Array')
-    console.log('=======================')
-    console.log(errors)
-
-    // ErrorFields Array
-    console.log('ErrorFields Array')
-    console.log('=======================')
-    console.log(errorFields)
-
     if (errors.length !== 0) {
         e.preventDefault()
     }
-
 }
 
 // Query myForm
