@@ -4,18 +4,59 @@
 
 body {
     color: #111;
+    background-color: #e5ecef;
     font: 400 16px/1.5 Helvetica, Arial, sans-serif;
+    margin: 0;
+    min-height: 100vh;
+    padding: 30px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;    
 }
 
-.form__control {
-    border: 1px solid #999;
-    height: 40px;
-    line-height: 38px;
-    border-radius: 4px;
-    padding: 6px 12px;
-    color: #111;
-    font: 400 16px/1.5 Helvetica, Arial, sans-serif;
+.container {
+    width: 100%;
+    max-width: 1030px;
+    padding: 0 15px;
+    margin: 0 auto;
 }
+
+.box {
+    max-width: 600px;
+    border-radius: 4px;
+    box-shadow: 0 1px 2px rgba(161, 161, 161, .5);
+    background-color: #fff;
+    margin: 0 auto;
+}
+
+.box__header,
+.box__footer,
+#errorMsg {
+    padding: 15px 30px;
+}
+
+.box__header {
+    border-bottom: 1px solid #ddd;
+}
+
+.box__footer {
+    border-top: 1px solid #ddd;
+}
+
+.box__header h1 {
+    margin: 0;
+    line-height: 1;
+}
+
+.box__main {
+    padding: 30px;
+}
+
+.text-right {
+    text-align: right;
+}
+
+/* Button Styles */
 
 .button {
     height: 40px;
@@ -33,9 +74,123 @@ body {
     background-color: #777;
 }
 
+/* Form Styles */
+
+.form__group {
+    display: flex;
+    align-items: flex-start;
+}
+
+.form__group:not(:last-child) {
+    margin-bottom: 15px;
+}
+
+.form__group-right {
+    width: 100%;
+    overflow: hidden;
+}
+
+.form__group p.help-text {
+    margin: 5px 0 0;
+    font-size: 12px;
+    font-style: italic;
+    color: #999;
+    line-height: 1;
+}
+
+.form__label {
+    width: 200px;
+    display: inline-block;
+    text-align: right;
+    margin-right: 10px;
+    margin-top: 12px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    line-height: 1;    
+}
+
+.form__control {
+    width: 100%;
+    height: 40px;
+    line-height: 38px;
+    border: 1px solid #999;
+    border-radius: 4px;
+    padding: 6px 12px;
+    color: #111;
+    font: 400 16px/1.5 Helvetica, Arial, sans-serif;
+}
+
 .form__control:focus,
 .button:focus {
     outline: none;
+}
+
+#userPhoto {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+    padding: 0;
+}
+
+[for="userPhoto"] {
+    width: 100%;
+    margin: 0;
+    border: 1px solid #999;
+    border-radius: 4px;
+    height: 40px;
+    line-height: 38px;
+    cursor: pointer;
+    display: block;
+    padding: 0 12px;
+    color: #999;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;    
+}
+
+[for="userPhoto"]:hover {
+    background-color: #f8f8f8;
+}
+
+.userPhotoPreview {
+    margin-top: 10px;
+}
+
+.select-widget {
+    position: relative;
+}
+
+.select-widget::after {
+    content: '\2193';
+    color: #999;
+    font-size: 14px;
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    line-height: 38px;
+    text-align: center;
+    right: 0;
+    top: 0;
+    pointer-events: none;
+}
+
+.select-widget select {
+    -webkit-appearance: none;
+}
+
+.select-widget select [selected] {
+    color: #999;
+}
+
+#errorMsg {
+    border-top: 1px solid #ddd;
+    text-align: center;
+    margin: 0;
+    background-color: rgba(255, 0, 0, .1);
 }
 
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
@@ -53,4 +208,29 @@ body {
 :-moz-placeholder { /* Firefox 18- */
     color: #999;
     font: 400 16px/1.5 Helvetica, Arial, sans-serif;
+}
+
+/* Media Queries */
+@media (max-width: 600px) {
+    .form__group {
+        flex-direction: column;
+    }
+
+    .form__label {
+        width: 100%;
+        text-align: left;
+        margin: 0 0 7px;
+    }    
+}
+
+@media (max-width: 480px) {
+    .box__header,
+    .box__footer,
+    .box__main {
+        padding: 15px;
+    }
+
+    #errorMsg {
+        text-align: left;
+    }
 }
