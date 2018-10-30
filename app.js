@@ -1,3 +1,5 @@
+(function(){
+// Rules for form validation
 const rules = {
     userName: { 
         required: true,
@@ -14,6 +16,13 @@ const rules = {
     }
 }
 
+// Query myForm
+const myForm = document.querySelector('#myForm')
+
+// Query userPhotoLabel
+const userPhotoLabel = myForm.querySelector('#userPhotoLabel')
+
+// Validate Form
 function validateForm(e, rules) {
     const form = e.target
     const errors = []
@@ -83,7 +92,6 @@ function validateForm(e, rules) {
     function validateFile() {
         if (rules.userPhoto.required) {
             const userPhotoEl = form.elements.userPhoto
-            const userPhotoElLabel = form.querySelector('[for="userPhoto"]')
             const userPhotos = userPhotoEl.files
             const userPhoto = userPhotoEl.files[0]
 
@@ -99,13 +107,13 @@ function validateForm(e, rules) {
 
             if (userPhotos.length === 0 || userPhoto === undefined) {
                 errors.push('You didn\'t <strong>choose</strong> any photo.')
-                errorFields.push(userPhotoElLabel)
+                errorFields.push(userPhotoLabel)
             } else if (!rules.userPhoto.accept.includes(userPhoto.type)) {
                 errors.push(`The file you selected (${userPhoto.name}) is not a valid type. Valid file types are: <strong>${rules.userPhoto.accept.join(', ')}</strong>.`)
-                errorFields.push(userPhotoElLabel)
+                errorFields.push(userPhotoLabel)
             } else if (userPhoto.size > rules.userPhoto.size) {
                 errors.push(`Your file size (${returnFileSize(userPhoto.size)}) is too large. The maximum allowed file size is 100KB.`)
-                errorFields.push(userPhotoElLabel)
+                errorFields.push(userPhotoLabel)
             }
         }
     }
@@ -144,16 +152,14 @@ function validateForm(e, rules) {
     }
 }
 
-// Query myForm
-const myForm = document.querySelector('#myForm')
-const userPhotoLabel = myForm.querySelector('[for="userPhoto"]')
-
 // Listen for submit event on myForm
 myForm.addEventListener('submit', function(event) {
     validateForm(event, rules)
 });
 
+// Listen for change event on userPhoto
 myForm.elements.userPhoto.onchange = function(event) {
     const photo = event.target.files[0]
     userPhotoLabel.textContent = photo.name
-}
+}    
+}())
