@@ -9,6 +9,10 @@ const rules = {
     userEmail: {
         required: true
     },
+    userPassword: {
+        required: true,
+        minlength: 8
+    },
     userPhoto: {
         required: true,
         accept: ['image/jpeg', 'image/png'],
@@ -118,6 +122,36 @@ function validateForm(e, rules) {
         }
     }
 
+    function validatePassword() {
+        if (rules.userPassword.required) {
+            const userPasswordEl = form.elements.userPassword
+            const userPasswordVal = userPasswordEl.value.trim()
+
+            if (userPasswordVal.length < rules.userPassword.minlength) {
+                errors.push('Password must be at least <strong>8</strong> characters long.')
+                addErrorField(userPasswordEl)
+            } else if (
+                !(/[a-z]/.test(userPasswordVal) &&
+                /[A-Z]/.test(userPasswordVal) &&
+                /[\d]/.test(userPasswordVal) &&
+                /[\W]/.test(userPasswordVal))
+            ) {
+                errors.push(`Password must include at least <strong>1</strong> lowercase letter, <strong>1</strong> uppercase letter, <strong>1</strong> digit, and <strong>1</strong> special character.`)
+                addErrorField(userPasswordEl)
+            }
+        }
+    }
+
+    function validatePasswordConfirm() {
+        const userPasswordConfirmEl = form.elements.userPasswordConfirm
+        const userPasswordConfirmVal = userPasswordConfirmEl.value.trim()
+
+        if (form.elements.userPassword.value.trim() !== userPasswordConfirmVal) {
+            errors.push('Those passwords didn\'t <strong>match</strong>. Try again.')
+            addErrorField(userPasswordConfirmEl)
+        }
+    }
+
     function hideError() {
         const errorsList = form.querySelector('#errorsList')
         if (errorsList) {
@@ -144,6 +178,8 @@ function validateForm(e, rules) {
     hideError()
     validateUserName()
     validateUserEmail()
+    validatePassword()
+    validatePasswordConfirm()
     validateFile()
     showError()
 
