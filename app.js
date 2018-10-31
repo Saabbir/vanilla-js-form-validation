@@ -13,6 +13,12 @@ const rules = {
         required: true,
         minlength: 8
     },
+    userDOB: {
+        required: true
+    },
+    userPhoneNumber: {
+        required: true
+    },
     userPhoto: {
         required: true,
         accept: ['image/jpeg', 'image/png'],
@@ -116,7 +122,7 @@ function validateForm(e, rules) {
                 errors.push(`The file you selected (${userPhoto.name}) is not a valid type. Valid file types are: <strong>${rules.userPhoto.accept.join(', ')}</strong>.`)
                 errorFields.push(userPhotoLabel)
             } else if (userPhoto.size > rules.userPhoto.size) {
-                errors.push(`Your file size (${returnFileSize(userPhoto.size)}) is too large. The maximum allowed file size is 100KB.`)
+                errors.push(`Your file size (${returnFileSize(userPhoto.size)}) is too large. The maximum allowed file size is <strong>100KB</strong>.`)
                 errorFields.push(userPhotoLabel)
             }
         }
@@ -152,6 +158,35 @@ function validateForm(e, rules) {
         }
     }
 
+    function validatePhoneNumber() {
+        if (rules.userPhoneNumber.required) {
+            const userPhoneNumberEl = form.elements.userPhoneNumber
+            const userPhoneNumberVal = userPhoneNumberEl.value.trim()
+            const userPhoneNumberRegex = /^\d{3}-?\d{2}-?\d{3}-?\d{3}$/
+
+            if (userPhoneNumberVal.length < 11) {
+                errors.push('The phone number must be at least <strong>11</strong> digit long.')
+                addErrorField(userPhoneNumberEl)
+            } else if (!userPhoneNumberRegex.test(userPhoneNumberVal)) {
+                errors.push('The phone number format is incorrect. We accept <strong>017-89-124-139</strong> or <strong>01789124139</strong> format.')
+                addErrorField(userPhoneNumberEl)
+            }
+        }
+    }
+
+    function validateDOB() {
+        if (rules.userDOB.required) {
+            const userDOBEl = form.elements.userDOB
+            const userDOBVal = userDOBEl.value.trim()
+            const userDOBRegex = /^\d\d?-(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)-\d{4}$/
+            
+            if (!userDOBRegex.test(userDOBVal)) {
+                errors.push('The date format is incorrect. We accept <strong>21-Sep-1994</strong> in this format.')
+                addErrorField(userDOBEl)
+            }            
+        }
+    }
+
     function hideError() {
         const errorsList = form.querySelector('#errorsList')
         if (errorsList) {
@@ -180,6 +215,8 @@ function validateForm(e, rules) {
     validateUserEmail()
     validatePassword()
     validatePasswordConfirm()
+    validatePhoneNumber()
+    validateDOB()
     validateFile()
     showError()
 
@@ -199,3 +236,8 @@ myForm.elements.userPhoto.onchange = function(event) {
     userPhotoLabel.textContent = photo.name
 }    
 }())
+
+// Listen for blur event on userPhoneNumber
+myForm.elements.userPhoneNumber.onblur = function(event) {
+    event.target.value = event.target.value.replace(/^(\d{3})-?(\d{2})-?(\d{3})-?(\d{3})$/, '$1-$2-$3-$4')
+}
