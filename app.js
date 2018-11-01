@@ -1,4 +1,4 @@
-(function(){ // Start IIFE
+;(function(window, document){ // Start IIFE
 'use strict';
 
 // Rules for validation
@@ -247,4 +247,4 @@ signupForm.elements.userPhoneNumber.onblur = function(event) {
 // Listen for submit event on signupForm
 signupForm.addEventListener('submit', validateForm)
 
-})() // End of IIFE
+})(window, document); // End of IIFE
